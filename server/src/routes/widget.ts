@@ -45,4 +45,8 @@ widget.get('/', (c) => {
   return c.text(widgetScript);
 });
 
+widget.get('/:botId', (c) => {
+  return c.json({ botId: c.req.param('botId') }, 200);
+});
+
 export default widget;

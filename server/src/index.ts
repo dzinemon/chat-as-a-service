@@ -43,7 +43,7 @@ app.use(async (c, next) => {
 app.route('/auth', authRoutes);
 app.route('/bots', botRoutes);
 app.route('/chat', chatRoutes);
-app.get('/widget.js', widgetRoutes);
+app.route('/widget', widgetRoutes);
 
 // Health check
 app.get('/health', (c) => {
