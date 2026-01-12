@@ -1,25 +1,27 @@
 {
-  "name": "server",
+  "name": "chat-service-api",
   "version": "1.0.0",
-  "description": "",
-  "main": "server.js",
+  "description": "Chat service API with Hono on Cloudflare Workers",
+  "type": "module",
   "scripts": {
-    "start": "node server.js",
+    "start": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "type-check": "tsc --noEmit",
     "format": "biome format --write .",
-    "lint": "biome lint .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "biome lint ."
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@google/generative-ai": "0.21.0",
-    "cors": "2.8.5",
-    "dotenv": "16.4.5",
-    "express": "5.2.1",
-    "sqlite3": "5.1.7"
+    "@google/generative-ai": "^0.21.0",
+    "hono": "^4.2.8"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.3.11"
+    "@biomejs/biome": "^2.3.11",
+    "@cloudflare/workers-types": "^4.20240614.0",
+    "@types/node": "^20.14.0",
+    "typescript": "^5.5.0",
+    "wrangler": "^3.60.0"
   }
 }

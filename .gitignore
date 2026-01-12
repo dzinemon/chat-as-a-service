@@ -9,21 +9,10 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
-# Runtime
-pids/
-*.pid
-*.seed
-*.pid.lock
-
-# Coverage
-**/coverage/
-.nyc_output/
-
 # Build / cache
 **/dist/
 build/
 .vite/
-.vscode/
 .cache/
 .parcel-cache/
 *.tsbuildinfo
@@ -56,3 +45,7 @@ Thumbs.db
 *.bak
 *.swp
 *.lock
+
+# Cloudflare
+.wrangler/
+wrangler.toml
