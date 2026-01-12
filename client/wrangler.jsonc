@@ -1,0 +1,7 @@
+{
+  "name": "chat-as-a-service-client",
+  "compatibility_date": "2026-01-12",
+  "assets": {
+    "directory": "./dist"
+  }
+}
