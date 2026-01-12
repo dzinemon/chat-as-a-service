@@ -48,7 +48,7 @@ A full-stack chatbot creation platform using React, Node.js, and Google Gemini.
 ![Bot dashboard](docs/chatbot-as-a-service-bot-dashboard.png)
 
 - **Test Widget:** Launch the widget and chat with your bot.  
-![Chat widget test](docs/chatbot-as-a-service-bot-test.png){: width="400"}
+<img src="docs/chatbot-as-a-service-bot-test.png" alt="Chat widget test" width="400">
 
 
 
