@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useEffect, useState } from 'react';
 import DeleteModal from '../components/DeleteModal';
 
 import { useAuth } from '../contexts/useAuth';
@@ -107,7 +107,10 @@ const Dashboard = () => {
             </h2>
             <form onSubmit={createBot} className="space-y-4">
               <div>
-                <label htmlFor="bot-name" className="block text-sm font-medium text-slate-700 mb-1">
+                <label
+                  htmlFor="bot-name"
+                  className="block text-sm font-medium text-slate-700 mb-1"
+                >
                   Bot Name
                 </label>
                 <input
@@ -121,7 +124,10 @@ const Dashboard = () => {
                 />
               </div>
               <div>
-                <label htmlFor="bot-instructions" className="block text-sm font-medium text-slate-700 mb-1">
+                <label
+                  htmlFor="bot-instructions"
+                  className="block text-sm font-medium text-slate-700 mb-1"
+                >
                   Instructions (Personality)
                 </label>
                 <textarea

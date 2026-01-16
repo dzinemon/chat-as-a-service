@@ -1,5 +1,5 @@
 import { Hono } from 'hono';
-import { HonoEnv } from '../index';
+import type { HonoEnv } from '../index';
 
 const widget = new Hono<HonoEnv>();
 

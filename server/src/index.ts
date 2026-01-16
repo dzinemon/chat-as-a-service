@@ -1,7 +1,5 @@
 import { Hono } from 'hono';
 import { cors } from 'hono/cors';
-import { GoogleGenerativeAI } from '@google/generative-ai';
-import { hashPassword, verifyPassword } from './auth';
 import { initializeDatabase } from './db';
 import authRoutes from './routes/auth';
 import botRoutes from './routes/bots';

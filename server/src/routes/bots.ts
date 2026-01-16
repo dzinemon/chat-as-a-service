@@ -1,6 +1,7 @@
+import type { Context, Next } from 'hono';
 import { Hono } from 'hono';
 import { getUser } from '../db';
-import { HonoEnv } from '../index';
+import type { HonoEnv } from '../index';
 
 function generateUUID(): string {
   return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
@@ -13,7 +14,7 @@ function generateUUID(): string {
 const bots = new Hono<HonoEnv>();
 
 // Middleware to authenticate user
-const authenticateUser = async (c: any, next: any) => {
+const authenticateUser = async (c: Context<HonoEnv>, next: Next) => {
   const authHeader = c.req.header('Authorization');
   const token = authHeader?.split(' ')[1];
 
@@ -39,9 +40,7 @@ bots.get('/', authenticateUser, async (c) => {
 
   try {
     const botsList = await db
-      .prepare(
-        'SELECT * FROM bots WHERE user_id = ? ORDER BY created_at DESC'
-      )
+      .prepare('SELECT * FROM bots WHERE user_id = ? ORDER BY created_at DESC')
       .bind(userId)
       .all();
 
@@ -79,10 +78,7 @@ bots.post('/', authenticateUser, async (c) => {
   const { name, instructions, allowed_domains } = await c.req.json();
 
   if (!name || !instructions) {
-    return c.json(
-      { error: 'Name and instructions are required' },
-      400
-    );
+    return c.json({ error: 'Name and instructions are required' }, 400);
   }
 
   const db = c.env.DB;
@@ -103,10 +99,7 @@ bots.post('/', authenticateUser, async (c) => {
       )
       .run();
 
-    return c.json(
-      { id: botId, name, instructions, allowed_domains },
-      201
-    );
+    return c.json({ id: botId, name, instructions, allowed_domains }, 201);
   } catch (error) {
     console.error('Create bot error:', error);
     return c.json({ error: 'Failed to create bot' }, 500);
@@ -126,10 +119,7 @@ bots.delete('/:id', authenticateUser, async (c) => {
       .run();
 
     if (result.meta.changes === 0) {
-      return c.json(
-        { error: 'Bot not found or unauthorized' },
-        404
-      );
+      return c.json({ error: 'Bot not found or unauthorized' }, 404);
     }
 
     return c.json({ message: 'Bot deleted' });

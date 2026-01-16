@@ -1,6 +1,6 @@
-import { Hono } from 'hono';
 import { GoogleGenerativeAI } from '@google/generative-ai';
-import { HonoEnv } from '../index';
+import { Hono } from 'hono';
+import type { HonoEnv } from '../index';
 
 const chat = new Hono<HonoEnv>();
 

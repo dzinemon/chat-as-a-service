@@ -1,13 +1,13 @@
 import { Hono } from 'hono';
-import { hashPassword, verifyPassword, generateToken } from '../auth';
+import { generateToken, hashPassword, verifyPassword } from '../auth';
 import {
-  findUserByEmail,
-  createUser,
   createSession,
+  createUser,
   deleteSession,
+  findUserByEmail,
   getUser,
 } from '../db';
-import { HonoEnv } from '../index';
+import type { HonoEnv } from '../index';
 
 function generateUUID(): string {
   return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
@@ -24,10 +24,7 @@ auth.post('/register', async (c) => {
   const { email, password } = await c.req.json();
 
   if (!email || !password) {
-    return c.json(
-      { error: 'Email and password required' },
-      400
-    );
+    return c.json({ error: 'Email and password required' }, 400);
   }
 
   const db = c.env.DB;
@@ -46,10 +43,7 @@ auth.post('/register', async (c) => {
     return c.json({ message: 'User created' }, 201);
   } catch (error) {
     console.error('Register error:', error);
-    return c.json(
-      { error: 'Registration failed' },
-      500
-    );
+    return c.json({ error: 'Registration failed' }, 500);
   }
 });
 
@@ -58,10 +52,7 @@ auth.post('/login', async (c) => {
   const { email, password } = await c.req.json();
 
   if (!email || !password) {
-    return c.json(
-      { error: 'Email and password required' },
-      400
-    );
+    return c.json({ error: 'Email and password required' }, 400);
   }
 
   const db = c.env.DB;

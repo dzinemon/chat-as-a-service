@@ -1,9 +1,8 @@
-import { Env } from './index';
-
 export async function initializeDatabase(db: D1Database): Promise<void> {
   try {
     // Users Table
-    await db.prepare(`
+    await db
+      .prepare(`
       CREATE TABLE IF NOT EXISTS users (
         id TEXT PRIMARY KEY,
         email TEXT UNIQUE NOT NULL,
@@ -11,20 +10,24 @@ export async function initializeDatabase(db: D1Database): Promise<void> {
         role TEXT DEFAULT 'user',
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP
       )
-    `).run();
+    `)
+      .run();
 
     // Sessions Table
-    await db.prepare(`
+    await db
+      .prepare(`
       CREATE TABLE IF NOT EXISTS sessions (
         token TEXT PRIMARY KEY,
         user_id TEXT NOT NULL,
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
         FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE
       )
-    `).run();
+    `)
+      .run();
 
     // Bots Table
-    await db.prepare(`
+    await db
+      .prepare(`
       CREATE TABLE IF NOT EXISTS bots (
         id TEXT PRIMARY KEY,
         user_id TEXT NOT NULL,
@@ -35,7 +38,8 @@ export async function initializeDatabase(db: D1Database): Promise<void> {
         updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
         FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE
       )
-    `).run();
+    `)
+      .run();
 
     console.log('Database initialized successfully');
   } catch (error) {
@@ -63,9 +67,7 @@ export async function createSession(
   token: string
 ): Promise<void> {
   await db
-    .prepare(
-      'INSERT INTO sessions (token, user_id) VALUES (?, ?)'
-    )
+    .prepare('INSERT INTO sessions (token, user_id) VALUES (?, ?)')
     .bind(token, userId)
     .run();
 }
@@ -74,10 +76,7 @@ export async function deleteSession(
   db: D1Database,
   token: string
 ): Promise<void> {
-  await db
-    .prepare('DELETE FROM sessions WHERE token = ?')
-    .bind(token)
-    .run();
+  await db.prepare('DELETE FROM sessions WHERE token = ?').bind(token).run();
 }
 
 export async function findUserByEmail(db: D1Database, email: string) {
@@ -94,9 +93,7 @@ export async function createUser(
   hashedPassword: string
 ): Promise<void> {
   await db
-    .prepare(
-      'INSERT INTO users (id, email, password) VALUES (?, ?, ?)'
-    )
+    .prepare('INSERT INTO users (id, email, password) VALUES (?, ?, ?)')
     .bind(id, email, hashedPassword)
     .run();
 }

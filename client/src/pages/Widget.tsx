@@ -1,7 +1,7 @@
-import { useState, useEffect, useRef } from 'react';
-import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import { useEffect, useRef, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
+import { useParams } from 'react-router-dom';
 
 const Widget = () => {
   const { id } = useParams();
