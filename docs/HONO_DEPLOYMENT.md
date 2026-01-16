@@ -1,20 +1,34 @@
 # Hono Server Deployment Guide
 
-## Setup Instructions
+## Local Development
+
+See the main [README.md](../README.md) for local development setup.
+
+## Production Deployment Guide
 
 ### 1. Install Dependencies
 ```bash
 cd server
+nvm use
 npm install
 ```
 
-### 2. Create Cloudflare D1 Database
+### 2. Cloudflare D1 Database
+The database is already configured in `wrangler.toml`:
+
+```toml
+[[d1_databases]]
+binding = "DB"
+database_name = "chatbot"
+database_id = "YOUR_PRODUCTION_DATABASE_ID"
+```
+
+For a new project, create a database:
 ```bash
 # Create the database
 wrangler d1 create chatbot
 
-# You'll get a database_id, copy it and update wrangler.toml
-# Replace YOUR_DATABASE_ID with the actual ID
+# Copy the database_id returned and update wrangler.toml
 ```
 
 ### 3. Run Migrations
@@ -22,25 +36,54 @@ wrangler d1 create chatbot
 wrangler d1 execute chatbot --file ./migrations/0001_init.sql
 ```
 
+Or for production database:
+```bash
+wrangler d1 execute chatbot --remote --file ./migrations/0001_init.sql
+```
+
 ### 4. Update Environment Variables
 
-Add to `wrangler.toml`:
+Update `wrangler.toml` with your production values:
+
 ```toml
 [vars]
 GEMINI_API_KEY = "your-actual-api-key"
 GEMINI_MODEL = "gemini-2.5-flash"
 FRONTEND_URL = "https://chat-service.YOUR-ACCOUNT.workers.dev"
+
+[env.production]
+vars = { ENVIRONMENT = "production" }
+
+[[env.production.d1_databases]]
+binding = "DB"
+database_name = "chatbot"
+database_id = "YOUR_PRODUCTION_DATABASE_ID"
 ```
 
 ### 5. Test Locally
 ```bash
+nvm use
 npm start
-# API will be available at http://localhost:8787
+# API will be available at http://localhost:3000
 ```
 
 ### 6. Deploy to Cloudflare Workers
 ```bash
 npm run deploy
+```
+
+Or for production environment:
+```bash
+wrangler deploy --env production
+```
+
+### 7. Verify Deployment
+
+Your API will be available at: `https://chat-service.YOUR-ACCOUNT.workers.dev`
+
+Test the health endpoint:
+```bash
+curl https://chat-service.YOUR-ACCOUNT.workers.dev/auth/me
 ```
 
 ## API Endpoints
