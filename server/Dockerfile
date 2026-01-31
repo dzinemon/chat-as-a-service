@@ -1,4 +1,4 @@
-FROM node:22.14.0-slim
+FROM node:24.12.0-slim
 
 # Install dependencies required for workerd
 RUN apt-get update && apt-get install -y --no-install-recommends \
