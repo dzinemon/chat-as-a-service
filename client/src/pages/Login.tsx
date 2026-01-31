@@ -1,7 +1,7 @@
-import { useState } from 'react';
 import axios from 'axios';
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/useAuth';
-import { useNavigate, Link } from 'react-router-dom';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -36,7 +36,10 @@ const Login = () => {
         )}
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label htmlFor="login-email" className="block text-sm font-medium text-slate-700 mb-1">
+            <label
+              htmlFor="login-email"
+              className="block text-sm font-medium text-slate-700 mb-1"
+            >
               Email
             </label>
             <input
@@ -49,7 +52,10 @@ const Login = () => {
             />
           </div>
           <div>
-            <label htmlFor="login-password" className="block text-sm font-medium text-slate-700 mb-1">
+            <label
+              htmlFor="login-password"
+              className="block text-sm font-medium text-slate-700 mb-1"
+            >
               Password
             </label>
             <input

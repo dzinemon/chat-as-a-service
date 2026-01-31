@@ -1,3 +1,10 @@
 # SQLite database files
 *.sqlite
 *.sqlite3
+
+# Build output
+dist/
+
+# Secrets (backup if root doesn't cover)
+.env.local
+wrangler.toml

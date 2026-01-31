@@ -1,7 +1,7 @@
-import { useState } from 'react';
 import axios from 'axios';
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/useAuth';
-import { useNavigate, Link } from 'react-router-dom';
 
 const Register = () => {
   const [email, setEmail] = useState('');
@@ -36,7 +36,10 @@ const Register = () => {
         )}
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label htmlFor="register-email" className="block text-sm font-medium text-slate-700 mb-1">
+            <label
+              htmlFor="register-email"
+              className="block text-sm font-medium text-slate-700 mb-1"
+            >
               Email
             </label>
             <input
@@ -49,7 +52,10 @@ const Register = () => {
             />
           </div>
           <div>
-            <label htmlFor="register-password" className="block text-sm font-medium text-slate-700 mb-1">
+            <label
+              htmlFor="register-password"
+              className="block text-sm font-medium text-slate-700 mb-1"
+            >
               Password
             </label>
             <input

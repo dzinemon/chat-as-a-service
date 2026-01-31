@@ -1,0 +1,30 @@
+services:
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./server/src:/app/src
+      - ./server/migrations:/app/migrations
+      - server_wrangler:/app/.wrangler
+    env_file:
+      - ./server/.env.example
+
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./client/src:/app/src
+      - ./client/public:/app/public
+    env_file:
+      - ./client/.env.local
+    depends_on:
+      - server
+
+volumes:
+  server_wrangler:
